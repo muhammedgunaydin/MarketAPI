@@ -2,7 +2,6 @@ package market
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/google/uuid"
@@ -26,7 +25,6 @@ func (a *Application) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	product.ID = uuid.New()
-	fmt.Println(product)
 	a.database.Upsert(&product)
 	w.WriteHeader(http.StatusCreated)
 }
@@ -38,7 +36,6 @@ func (a *Application) ReadAll(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(err.Error()))
 		return
 	}
-	fmt.Println(products)
 	productsJSON, err := json.Marshal(products)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)

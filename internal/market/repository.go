@@ -63,7 +63,7 @@ func (db *repository) GetAll() ([]Product, error) {
 func (db *repository) Upsert(product *Product) {
 	sqlQuery := `INSERT INTO product (id, name, price) values ($1,$2,$3)
 	ON CONFLICT(id)
-	DO UPDATE SET name=$2 price=$3`
+	DO UPDATE SET name=$2, price=$3`
 
 	args := []interface{}{product.ID, product.Name, product.Price}
 	db.DB.Exec(sqlQuery, args...)
